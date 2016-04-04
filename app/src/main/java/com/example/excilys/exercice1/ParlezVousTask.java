@@ -22,9 +22,11 @@ import java.net.URL;
  */
 public class ParlezVousTask extends AsyncTask {
     Activity activity;
+    boolean response;
 
     public ParlezVousTask (Activity activity){
         this.activity = activity;
+        response = false;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class ParlezVousTask extends AsyncTask {
         progressBar.setVisibility(View.INVISIBLE);
 
         Log.d("PVT", "launch Intent !");
-       mainActivity.launchConnectedActivity();
+       /* if (response) */mainActivity.launchConnectedActivity();
         Log.d("PVT", "Intent launched !");
     }
 
@@ -62,6 +64,7 @@ public class ParlezVousTask extends AsyncTask {
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 InputStreamToString inputStreamToString = new InputStreamToString();
                 String inputString = inputStreamToString.convert(in);
+                if (inputString.equals("true")) response = true;
                 Log.d("PVT_result", inputString);
 
             }
