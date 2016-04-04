@@ -86,7 +86,9 @@
             android:layout_weight="0.35"
             android:layout_gravity="left"
             android:layout_marginLeft="10dp"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:onClick="viderListener"
+            />
 
         <Button
             android:layout_width="160dp"
@@ -94,11 +96,11 @@
             android:text="@string/envoyer"
             android:id="@+id/button_envoyer"
             android:layout_alignParentBottom="true"
-
             android:layout_weight="0.54"
             android:layout_marginLeft="10dp"
             android:layout_gravity="right"
-            android:background="#ffffff" />
+            android:background="#ffffff"
+            android:onClick="sendListener"/>
 
     </LinearLayout>
 
