@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.i(TAG, "onCreate !");
 
-        usernameField = (EditText) findViewById(R.id.username);
-
     }
 
     public void sendListener (View view){
         Toast.makeText(this, "Toast !", Toast.LENGTH_SHORT).show();
+        ParlezVousTask pvt = new ParlezVousTask(this);
+        pvt.execute();
     }
 
     public void viderListener(View view){
@@ -36,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
         passwordField.setText("");
     }
 
+
+    public String getUsername(){
+        return usernameField.getText().toString();
+    }
+
+    public String getPassword(){
+        return passwordField.getText().toString();
+    }
 
     @Override
     protected void onDestroy() {
