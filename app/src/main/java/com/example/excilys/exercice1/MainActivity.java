@@ -1,5 +1,6 @@
 package com.example.excilys.exercice1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendListener (View view){
         Toast.makeText(this, "Toast !", Toast.LENGTH_SHORT).show();
+        usernameField = (EditText) findViewById(R.id.username);
+        passwordField = (EditText) findViewById(R.id.password);
         ParlezVousTask pvt = new ParlezVousTask(this);
         pvt.execute();
     }
@@ -44,6 +47,13 @@ public class MainActivity extends AppCompatActivity {
     public String getPassword(){
         return passwordField.getText().toString();
     }
+
+    public void launchConnectedActivity(){
+        Intent intent = new Intent(this, ConnectedActivity.class);
+        intent.putExtra("username", getUsername());
+        startActivity(intent);
+    }
+
 
     @Override
     protected void onDestroy() {
@@ -74,4 +84,5 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         Log.i(TAG, "onRestoreInstanceState !");
     }
+
 }

@@ -5,4 +5,6 @@
     <string name="password">Mot de passe</string>
     <string name="vider">Vider</string>
     <string name="envoyer">Envoyer</string>
+    <string name="title_activity_connected">Connected</string>
+    <string name="hello">Bonjour </string>
 </resources>

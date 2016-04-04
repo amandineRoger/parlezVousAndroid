@@ -37,8 +37,15 @@ public class ParlezVousTask extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        ProgressBar progressBar = (ProgressBar) activity.findViewById(R.id.progressBar);
+
+        MainActivity mainActivity = (MainActivity) activity;
+
+        ProgressBar progressBar = (ProgressBar) mainActivity.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
+
+        Log.d("PVT", "launch Intent !");
+       mainActivity.launchConnectedActivity();
+        Log.d("PVT", "Intent launched !");
     }
 
     @Override
@@ -52,8 +59,6 @@ public class ParlezVousTask extends AsyncTask {
             URL url = new URL("http://www.google.com/");
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
-
-
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
                 InputStreamToString inputStreamToString = new InputStreamToString();
                 String inputString = inputStreamToString.convert(in);
@@ -70,8 +75,6 @@ public class ParlezVousTask extends AsyncTask {
         } catch (Exception e) {
             Log.e("ERROR_PVT_2", e.getMessage());
         }
-
-
 
         return null;
     }
