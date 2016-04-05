@@ -1,6 +1,7 @@
 package com.example.excilys.exercice1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = MainActivity.class.getSimpleName();
+    public static final String PREF_NAME = "credentials";
+    private static final String USERNAME = "username";
+    private static final String PWD = "password";
 
     private EditText usernameField;
     private EditText passwordField;
@@ -20,22 +24,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        usernameField = (EditText) findViewById(R.id.username);
+        passwordField = (EditText) findViewById(R.id.password);
+
+        SharedPreferences settings = getSharedPreferences(PREF_NAME, 0);
+        String username = settings.getString(USERNAME, null);
+        String password = settings.getString(PWD, null);
+
+        if (username != null) {
+            usernameField.setText(username);
+            if (password != null) passwordField.setText(password);
+        }
+
+
         Log.i(TAG, "onCreate !");
 
     }
 
     public void sendListener (View view){
         Toast.makeText(this, "Toast !", Toast.LENGTH_SHORT).show();
-        usernameField = (EditText) findViewById(R.id.username);
-        passwordField = (EditText) findViewById(R.id.password);
         ParlezVousTask pvt = new ParlezVousTask(this);
         pvt.execute();
     }
 
     public void viderListener(View view){
-        usernameField = (EditText) findViewById(R.id.username);
         usernameField.setText("");
-        passwordField = (EditText) findViewById(R.id.password);
         passwordField.setText("");
     }
 
@@ -48,9 +62,19 @@ public class MainActivity extends AppCompatActivity {
         return passwordField.getText().toString();
     }
 
+
+
+
     public void launchConnectedActivity(){
         Intent intent = new Intent(this, ConnectedActivity.class);
-        intent.putExtra("username", getUsername());
+        intent.putExtra(USERNAME, getUsername());
+
+        SharedPreferences settings = getSharedPreferences(PREF_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(USERNAME, getUsername());
+        editor.putString(PWD, getPassword());
+        editor.commit();
+
         startActivity(intent);
     }
 
