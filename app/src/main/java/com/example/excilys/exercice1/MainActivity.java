@@ -1,6 +1,8 @@
 package com.example.excilys.exercice1;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,11 +21,18 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText usernameField;
     private EditText passwordField;
+    private  ParlezVousSMSReceiver receiver;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        IntentFilter filter = new IntentFilter("android.provider.Telephony.SMS_RECEIVED");
+        IntentFilter anotherFilter = new IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED);
+        receiver = new ParlezVousSMSReceiver();
+//        registerReceiver(receiver, filter);
+        registerReceiver(receiver, anotherFilter);
 
         usernameField = (EditText) findViewById(R.id.username);
         passwordField = (EditText) findViewById(R.id.password);
@@ -36,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             usernameField.setText(username);
             if (password != null) passwordField.setText(password);
         }
-
 
         Log.i(TAG, "onCreate !");
 
