@@ -1,5 +1,7 @@
 package com.example.excilys.exercice1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,10 +40,32 @@ public class ConnectedActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.item_deco:
-                finish();
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+                alertDialogBuilder.setPositiveButton("Déconnexion", listener);
+                alertDialogBuilder.setNegativeButton("Annuler", listener);
+                alertDialogBuilder.setMessage("Attention, vous allez être déconnecté ! Continuer ?");
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
                 break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    finish();
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    break;
+            }
+        }
+    };
+
 }
